@@ -1,1 +1,1 @@
-# kele
+# Kele | A Ruby Gem
