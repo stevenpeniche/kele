@@ -45,8 +45,20 @@ class Kele
 				token: message_thread_token,
 				subject: subject,
 				"stripped-text": body
-				})
+			})
 
-		response ? "Message sent" : "Something went wrong"
+		@my_created_message = JSON.parse(response.body)
+	end
+
+	def create_submission(checkpoint_id, comment = '')
+		@user_enrollment_id = self.get_me['current_enrollment']['id']
+		response = self.class.post("https://www.bloc.io/api/v1/checkpoint_submissions",
+			body: {
+				checkpoint_id: checkpoint_id,
+				comment: comment,
+				enrollment_id: @user_enrollment_id
+			}, headers: { "authorization" => @user_auth_token })
+
+		@my_submission = JSON.parse(response.body)
 	end
 end
